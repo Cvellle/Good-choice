@@ -6,8 +6,9 @@ const DataSchema = new Schema(
     id: Number,
     firstName: String,
     lastName: String,
-    mail: String,
+    email: String,
     password: String,
+    role: String,
     registrationKey: String,
   },
   { timestamps: true }

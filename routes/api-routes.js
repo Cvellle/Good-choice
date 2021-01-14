@@ -4,39 +4,19 @@ const { getMaxListeners } = require("../models/Data");
 const crypto = require("crypto");
 
 module.exports = function (app) {
-  app.get("/api/datas", function (req, res) {
-    Data.find({})
+  const randomString = crypto.randomBytes(Math.ceil(20 / 2)).toString("hex");
+  const registrationKey = `${Date.now()}_${randomString}`;
+  const link = process.env.APP_URL_DEVELOPMENT || "http://localhost:3000";
+
+  app.get("/api/datas", (req, res) => {
+    Data.aggregate([{ $match: req.query }])
       .then(function (data) {
-        res.json(data);
+        res.send(data);
       })
       .catch(function (err) {
         res.json(err);
       });
   });
-
-  app.put("/api/datas", (req, res) => {
-    const { id, update } = req.body;
-    Data.findOneAndUpdate(id, update, (err) => {
-      if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true });
-    });
-  });
-
-  // app.get("/api/datas", (req, res) => {
-  //   const { id, update } = req.body;
-  //   Data.aggregate([
-  //     { $match: { message: "first" } },
-  //   ])
-  //     .then(function (data) {
-  //       res.json(data);
-  //     })
-  //     .catch(function (err) {
-  //       res.json(err);
-  //     });
-  // });
-  const randomString = crypto.randomBytes(Math.ceil(20 / 2)).toString("hex");
-  const registrationKey = `${Date.now()}_${randomString}`;
-  const link = process.env.APP_URL_DEVELOPMENT || "http://localhost:3000";
 
   app.post("/api/datas", function (req, res) {
     Data.create(req.body)
@@ -78,6 +58,14 @@ module.exports = function (app) {
       })
       .then(() => console.log("Email sent successfully."))
       .catch((error) => console.log(error));
+  });
+
+  app.put("/api/datas", (req, res) => {
+    const { id, update } = req.body;
+    Data.findOneAndUpdate(id, update, (err) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true });
+    });
   });
 
   app.delete("/api/datas", (req, res) => {
