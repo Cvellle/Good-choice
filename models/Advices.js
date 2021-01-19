@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const DataSchema = new Schema(
+const AdvicesSchema = new Schema(
   {
     id: Number,
     name: String,
@@ -12,4 +12,4 @@ const DataSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Advices", DataSchema);
+module.exports = mongoose.model("Advices", AdvicesSchema);

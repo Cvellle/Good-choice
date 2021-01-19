@@ -14,8 +14,8 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-require("./routes/api-routes", "./routes/advices-routes")(app);
-// require("./routes/advices-routes")(app);
+require("./routes/api-routes")(app);
+require("./routes/advices-routes")(app);
 
 mongoose.connect(
   process.env.MONGODB_URI ||
