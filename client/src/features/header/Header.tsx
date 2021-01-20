@@ -58,9 +58,9 @@ export default function Header() {
             <Grid item xs={6}>
               <Box display="flex" justifyContent="flex-end">
                 <span onClick={onLogout}>
-                  <Link to="/add-new" style={{ color: 'white', textDecoration: 'none' }}>
+                  <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
                     logOutUser
-                </Link>
+                  </Link>
                 </span>
               </Box>
             </Grid>
