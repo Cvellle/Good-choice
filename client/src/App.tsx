@@ -27,15 +27,13 @@ function App() {
 
   return (
     <div className="App">
-      <div className="background"></div>
-      <div className="rest">  <BrowserRouter>
+      <BrowserRouter>
         <Header/>
         <Route path="/signup" component={SignUp} exact/>
         <Route path="/login" component={Login} exact />
         <PrivateRoute component={Dashboard} isAuth={adminBoolean || beginnerUserBoolean || advancedUserBoolean} redirectPath="/login" path="/" exact/>
         <PrivateRoute component={AddItems} isAuth={adminBoolean || advancedUserBoolean} redirectPath="/" path="/add-new" exact/>
-      </BrowserRouter></div>
-   
+      </BrowserRouter>
     </div>
   );
 }
