@@ -28,14 +28,15 @@ export const loginSlice = createSlice({
       state.role = "";
     },
     changeRole: (state, action: PayloadAction<User>) => {
-      const { id, role } = action.payload;
+      const { email, role } = action.payload;
       (state.role == "USER_BEGINNER") && (state.role = "USER_ADVANCED")
 
       axios.put("/api/datas", {
-        id: { _id: id },
+        email: { email: email },
         update: {
           ...action.payload,
-          role: role == "USER_BEGINNER" && "USER_ADVANCED"
+          role: role === "USER_BEGINNER" ? "USER_ADVANCED" :
+            (role === "USER_ADVANCED" ? "ADMIN" : "ADMIN")
         }
       });
     }
